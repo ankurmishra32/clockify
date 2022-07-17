@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Header from "./components/Header";
+import Menu from "./components/Menu";
+import Content from "./components/Content";
+import "./App.css";
 
 function App() {
+  const [content, setContent] = useState(0);
+  const [projectList, setProjectList] = useState([]);
+  const addProject = (name) => {
+    const project = {
+      id: projectList.length,
+      name: name,
+      time: "00:00:00",
+    };
+    setProjectList([...projectList, project]);
+  }
+  const addTime = (id, time) => {
+    const pListClone = projectList.map((project) => {
+      if(project.id !== id) {
+        return project;
+      }
+      return {...project, time};
+    });
+    setProjectList([...pListClone]);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <div className="mainContainer">
+        <Menu setContent={setContent} />
+        <Content content={content} projectList={projectList} addProject={addProject} addTime={addTime} />
+      </div>
     </div>
   );
 }
