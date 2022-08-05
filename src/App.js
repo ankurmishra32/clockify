@@ -14,22 +14,27 @@ function App() {
       time: "00:00:00",
     };
     setProjectList([...projectList, project]);
-  }
+  };
   const addTime = (id, time) => {
     const pListClone = projectList.map((project) => {
-      if(project.id !== id) {
+      if (project.id !== id) {
         return project;
       }
-      return {...project, time};
+      return { ...project, time };
     });
     setProjectList([...pListClone]);
-  }
+  };
   return (
     <div>
       <Header />
       <div className="mainContainer">
         <Menu setContent={setContent} />
-        <Content content={content} projectList={projectList} addProject={addProject} addTime={addTime} />
+        <Content
+          content={content}
+          projectList={projectList}
+          addProject={addProject}
+          addTime={addTime}
+        />
       </div>
     </div>
   );
